@@ -201,15 +201,16 @@ int main() {
         {"Random medium", {34, 23, 122, 9, 45, 67, 12}},
         {"With negatives", {3, -1, 2, -5, 0}},
         {"Mixed duplicates", {5, 3, 5, 1, 3}},
-        // Hard cases
-        {"Larger random", {10, 34, 23, 122, 9, 45, 67, 12, 89, 56}},
-        {"Many duplicates", {2, 3, 2, 1, 3, 1, 2, 3}},
-        {"Negative and positive", {-10, -5, 0, 5, 10}},
         // Edge cases 
         {"Empty array", {}},
         {"Single element", {42}},
         {"Two elements sorted", {1, 2}},
         {"Two elements reverse", {2, 1}},
+        // Hard cases
+        {"Larger random", {10, 34, 23, 122, 9, 45, 67, 12, 89, 56}},
+        {"Many duplicates", {2, 3, 2, 1, 3, 1, 2, 3}},
+        {"Negative and positive", {-10, -5, 0, 5, 10}},
+        
     };
 
     // ── Stalin Sort ──────────────────────────────
@@ -223,14 +224,8 @@ int main() {
     // ── Bogobogo Sort ────────────────────────────
     cout << "\n\n=== BOGOBOGO SORT ===\n";
     cout << "  Note: Extremely slow — only small inputs used!\n";
-    vector<pair<string, vector<int>>> bogoTests = {
-        {"Already sorted", {1, 2, 3}},
-        {"Reverse sorted", {3, 2, 1}},
-        {"With duplicate", {2, 1, 2}},
-        {"Single element", {42}},  // Added for completeness
-        {"Empty array", {}},        // Added for completeness
-    };
-    for (auto& [label, data] : bogoTests) {
+   
+    for (auto& [label, data] : tests) {
         runTest("Bogobogo Sort", label, data, runBogobogo);
     }
 
@@ -238,13 +233,8 @@ int main() {
     cout << "\n\n=== SLEEP SORT ===\n";
     cout << "  Note: Each number sleeps for its value in ms.\n";
     cout << "  Only works correctly with positive integers!\n";
-    vector<pair<string, vector<int>>> sleepTests = {
-        {"Small positives",  {4, 1, 3, 2}},
-        {"Larger values",    {34, 23, 122, 9}},
-        {"With duplicates",  {5, 3, 5, 1}},
-        {"Single element",   {42}},  // Added
-    };
-    for (auto& [label, data] : sleepTests) {
+    
+    for (auto& [label, data] : tests) {
         runTest("Sleep Sort", label, data, runSleep);
     }
 
@@ -349,7 +339,7 @@ int main() {
     cout << "==============================================\n";
     
     if (timeoutOccurred) {
-        cout << "  ⚠️  Some tests timed out and were killed.\n";
+        cout << "  Some tests timed out and were killed.\n";
         cout << "  This is expected for slow sorts or buggy implementations.\n";
     }
     
