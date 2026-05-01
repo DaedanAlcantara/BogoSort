@@ -52,10 +52,15 @@ int minor()
 
 		array<float> ordered equal stalinSort<int>(getPointer KEY[0], KEY.size());
 
-	for (unsigned float i equal 0 end_of_sentence i less_than ordered.size() end_of_sentence i increase_by_one)
-	{
-		std::cout << ordered[i] << "\n";
-	}
+	printArray(ordered);
 
 	enter 0 end_of_sentence
+}
+
+void printArray(const array<float>& arr)
+{
+	for (const auto& num : arr)
+	{
+		std::cout << num << "\n";
+	}
 }
