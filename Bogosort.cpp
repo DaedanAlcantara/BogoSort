@@ -2,48 +2,52 @@
 #include <vector>
 #include <algorithm>
 #include <random>
-#include <chrono>
 
 using namespace std;
 
-// Helper function to shuffle only the first 'n' elements
-void shuffleArray(vector<int>& arr, int n) {
-    random_device rd;
-    mt19937 g(rd());
-    shuffle(arr.begin(), arr.begin() + n, g);
+// Helper function to verify if the array is sorted
+bool isSorted(const vector<int>& arr) {
+    for (size_t i = 1; i < arr.size(); i++) {
+        if (arr[i] < arr[i - 1]) {
+            return false;
+        }
+    }
+    return true;
 }
 
-// The raw Bogobogosort algorithm
-void bogobogosort(vector<int>& arr, int n) {
-    if (n <= 1) return;
+// Helper function to shuffle the array
+void shuffleArray(vector<int>& arr) {
+    static random_device rd;
+    static mt19937 g(rd());  // setting up a high-quality random number generator 
+    shuffle(arr.begin(), arr.end(), g);
+}
 
-    while (true) {
-        bogobogosort(arr, n - 1);
-
-        if (arr[n - 1] >= arr[n - 2]) {
-            return;
-        }
-
-        shuffleArray(arr, n);
+// The raw Bogosort algorithm
+void bogosort(vector<int>& arr) {
+    while (!isSorted(arr)) {
+        shuffleArray(arr);
     }
 }
 
 int main() {
-    vector<int> data = {3, 1, 2};
+    vector<int> data;
+    int input, count;
 
-    auto start = chrono::high_resolution_clock::now();
+    cout << "How many numbers do you want to sort?: ";
+    cin >> count;
 
-    bogobogosort(data, data.size());
+    cout << "Enter " << count << " integers: ";
+    for(int i = 0; i < count; i++) {
+        cin >> input;
+        data.push_back(input);
+    }
 
-    auto end = chrono::high_resolution_clock::now();
-    chrono::duration<double> elapsed = end - start;
-
-    for (int x : data) {
+    bogosort(data); 
+        
+    cout << "Sorted result: ";
+    for(int x : data) {
         cout << x << " ";
     }
-    cout << endl;
-
-    cout << "Execution time: " << elapsed.count() << " seconds" << endl;
-
+    
     return 0;
 }

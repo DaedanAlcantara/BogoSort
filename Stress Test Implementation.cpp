@@ -16,6 +16,7 @@
 #include "Bogobogo_Sort.h"
 #include "Sleep_Sort.h"
 #include "Thanos_Sort.h"
+#include "Bogosort.h"
 
 using namespace std;
 
@@ -82,7 +83,7 @@ bool runTestWithTimeout(const string& sorterName, const string& label,
         }
         cout << "\n  TEST   : " << label << "\n";
         cout << "  Input  : "; printVector(input); cout << "\n";
-        cout << "==========================================\n";
+        cout << "------------------------------------------\n";
         cout.flush();
     }
 
@@ -174,6 +175,11 @@ vector<int> runBogobogo(vector<int> arr) {
     return arr;
 }
 
+vector<int> runBogosort(vector<int> arr) {
+    bogosort(arr);
+    return arr;
+}
+
 vector<int> runSleep(vector<int> arr) {
     return sleepSort(arr);
 }
@@ -248,7 +254,12 @@ int main() {
     for (auto& [label, data] : tests) {
         runTest("Thanos Sort", label, data, runThanos);
     }
-
+    cout << "\n\n=== BOGOSORT ===\n";
+    cout << "  Note: Randomly shuffles until sorted.\n";
+    cout << "  WARNING: Will likely timeout on larger inputs!\n";
+    for (auto& [label, data] : tests) {
+        runTest("Bogosort", label, data, runBogosort);
+    }
     // ==============================================
     //  ABSURDIST TEST CASES WITH AGGRESSIVE TIMEOUTS
     // ==============================================
@@ -275,64 +286,7 @@ int main() {
     cout << "Vectors generated. Running tests...\n";
     cout.flush();
 
-    // Medium tests (100 elements) with timeouts
-    cout << "\n--- MEDIUM TESTS (100 elements) ---\n";
     
-    cout << "\n[Stalin Sort - Timeout: 10 seconds]\n";
-    for (auto& [label, data] : mediumTests) {
-        runTestWithTimeout("Stalin Sort", label, data, runStalin, 60.0, true);
-    }
-    
-    cout << "\n[Thanos Sort - Timeout: 30 seconds]\n";
-    for (auto& [label, data] : mediumTests) {
-        runTestWithTimeout("Thanos Sort", label, data, runThanos, 60.0, true);
-    }
-    
-    cout << "\n[Sleep Sort - Timeout: 60 seconds]\n";
-    cout << "  Note: Sleep sort must wait for values up to 100ms each\n";
-    for (auto& [label, data] : mediumTests) {
-        runTestWithTimeout("Sleep Sort", label, data, runSleep, 60.0, true);
-    }
-    
-    cout << "\n[Bogobogo Sort - Timeout: 5 seconds]\n";
-    cout << "  Note: Bogobogo will almost certainly timeout!\n";
-    for (auto& [label, data] : mediumTests) {
-        runTestWithTimeout("Bogobogo Sort", label, data, runBogobogo, 60.0, true);
-    }
-
-    // Large tests (1000 elements) with very aggressive timeouts
-    cout << "\n\n--- LARGE TESTS (1000 elements) ---\n";
-    cout << "  WARNING: These tests have very short timeouts\n";
-    cout << "  and will likely all timeout except Stalin/Thanos.\n";
-    
-    cout << "\n[Stalin Sort - Timeout: 5 seconds]\n";
-    for (auto& [label, data] : largeTests) {
-        runTestWithTimeout("Stalin Sort", label, data, runStalin, 60.0, true);
-    }
-    
-    cout << "\n[Thanos Sort - Timeout: 15 seconds]\n";
-    for (auto& [label, data] : largeTests) {
-        runTestWithTimeout("Thanos Sort", label, data, runThanos, 60.0, true);
-    }
-    
-    cout << "\n[Sleep Sort - Timeout: 30 seconds]\n";
-    cout << "  Note: With 1000 elements sleeping up to 100ms,\n";
-    cout << "  this will likely timeout.\n";
-    for (auto& [label, data] : largeTests) {
-        runTestWithTimeout("Sleep Sort", label, data, runSleep, 60.0, true);
-    }
-    
-    cout << "\n[Bogobogo Sort - Timeout: 2 seconds]\n";
-    cout << "  Note: Bogobogo will timeout immediately!\n";
-    for (auto& [label, data] : largeTests) {
-        runTestWithTimeout("Bogobogo Sort", label, data, runBogobogo, 60.0, true);
-    }
-    
-    // Special test: Thanos on empty array with short timeout to demonstrate protection
-    cout << "\n\n--- EDGE CASE TEST: Thanos Sort on Empty Array ---\n";
-    cout << "  This test demonstrates timeout protection.\n";
-    vector<int> emptyVec = {};
-    runTestWithTimeout("Thanos Sort", "Empty array (timeout test)", emptyVec, runThanos, 60.0, true);
     
     cout << "\n\n==============================================\n";
     cout << "             ALL TESTS COMPLETE\n";
