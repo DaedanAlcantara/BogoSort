@@ -286,7 +286,70 @@ int main() {
     cout << "Vectors generated. Running tests...\n";
     cout.flush();
 
+    // Medium tests (100 elements) with timeouts
+    cout << "\n--- MEDIUM TESTS (100 elements) ---\n";
     
+    cout << "\n[Stalin Sort - Timeout: 60 seconds]\n";
+    for (auto& [label, data] : mediumTests) {
+        runTestWithTimeout("Stalin Sort", label, data, runStalin, 60.0, true);
+    }
+    
+    cout << "\n[Thanos Sort - Timeout: 60 seconds]\n";
+    for (auto& [label, data] : mediumTests) {
+        runTestWithTimeout("Thanos Sort", label, data, runThanos, 60.0, true);
+    }
+    
+    cout << "\n[Sleep Sort - Timeout: 60 seconds]\n";
+    cout << "  Note: Sleep sort must wait for values up to 100ms each\n";
+    for (auto& [label, data] : mediumTests) {
+        runTestWithTimeout("Sleep Sort", label, data, runSleep, 60.0, true);
+    }
+    
+    cout << "\n[Bogobogo Sort - Timeout: 60 seconds]\n";
+    cout << "  Note: Bogobogo will almost certainly timeout!\n";
+    for (auto& [label, data] : mediumTests) {
+        runTestWithTimeout("Bogobogo Sort", label, data, runBogobogo, 60.0, true);
+    }
+
+    cout << "\n [Bogosort - Timeout: 60 seconds]\n";
+    cout << "  Note: Bogosort will likely timeout on larger inputs!\n";
+    for (auto& [label, data] : mediumTests) {
+        runTestWithTimeout("Bogosort", label, data, runBogosort, 60.0, true);
+    }
+
+    // Large tests (1000 elements) with very aggressive timeouts
+    cout << "\n\n--- LARGE TESTS (1000 elements) ---\n";
+    cout << "  WARNING: These tests have very short timeouts\n";
+    cout << "  and will likely all timeout except Stalin/Thanos.\n";
+    
+    cout << "\n[Stalin Sort - Timeout: 60 seconds]\n";
+    for (auto& [label, data] : largeTests) {
+        runTestWithTimeout("Stalin Sort", label, data, runStalin, 60.0, true);
+    }
+    
+    cout << "\n[Thanos Sort - Timeout: 60 seconds]\n";
+    for (auto& [label, data] : largeTests) {
+        runTestWithTimeout("Thanos Sort", label, data, runThanos, 60.0, true);
+    }
+    
+    cout << "\n[Sleep Sort - Timeout: 60 seconds]\n";
+    cout << "  Note: With 1000 elements sleeping up to 100ms,\n";
+    cout << "  this will likely timeout.\n";
+    for (auto& [label, data] : largeTests) {
+        runTestWithTimeout("Sleep Sort", label, data, runSleep, 60.0, true);
+    }
+    
+    cout << "\n[Bogobogo Sort - Timeout: 60 seconds]\n";
+    cout << "  Note: Bogobogo will timeout immediately!\n";
+    for (auto& [label, data] : largeTests) {
+        runTestWithTimeout("Bogobogo Sort", label, data, runBogobogo, 60.0, true);
+    }
+
+    cout << "\n [Bogosort - Timeout: 60 seconds]\n";
+    cout << "  Note: Bogosort will likely timeout immediately!\n";
+    for (auto& [label, data] : largeTests) {
+        runTestWithTimeout("Bogosort", label, data, runBogosort, 60.0, true);
+    }
     
     cout << "\n\n==============================================\n";
     cout << "             ALL TESTS COMPLETE\n";
