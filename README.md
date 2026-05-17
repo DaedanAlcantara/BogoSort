@@ -24,7 +24,7 @@ Meanwhile, Sleep Sort is able to achieve high data integrity but fails to be les
 <div align = "center">
 
 
-The full analysis paper can be found [here](https://docs.google.com/document/d/https://drive.google.com/file/d/12dhtzhVP5hiLjT904D8nNiddOPookqfm/view?usp=sharing).
+The full analysis paper can be found [here](https://drive.google.com/file/d/12dhtzhVP5hiLjT904D8nNiddOPookqfm/view?usp=sharing).
 </div>
 
 ## Acknowledgements
